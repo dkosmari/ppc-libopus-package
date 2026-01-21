@@ -7,9 +7,11 @@ arch=('any')
 url='https://opus-codec.org'
 license=("BSD")
 options=(!buildflags !strip libtool staticlibs)
-source=("https://downloads.xiph.org/releases/${_pkgname}/${_pkgname}-${pkgver}.tar.gz")
-makedepends=('ppc-pkg-config' 'dkp-toolchain-vars')
+depends=('devkitPPC')
+makedepends=('dkp-toolchain-vars'
+             'ppc-pkg-config')
 groups=('ppc-portlibs')
+source=("https://downloads.xiph.org/releases/${_pkgname}/${_pkgname}-${pkgver}.tar.gz")
 
 build() {
     source "${DEVKITPRO}/ppcvars.sh"
@@ -17,7 +19,7 @@ build() {
     cd "${_pkgname}-${pkgver}"
 
     ./configure \
-        --host="powerpc-eabi" \
+        --host=powerpc-eabi \
         --prefix="${PORTLIBS_PREFIX}" \
         --disable-shared \
         --enable-static \
